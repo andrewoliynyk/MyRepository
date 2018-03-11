@@ -10,7 +10,7 @@ def getDigitRecognizerData(pTrainPath, pTestPath):
     test = pd.read_csv("../Coursework/Data/" + pTestPath)
     
     X_train = (train.ix[:,1:].values).astype('float32')
-    y_train = train.ix[:,0].values.astype('int32')
+    y_train = (train.ix[:,0].values).astype('int32')
     X_test = test.values.astype('float32')
 
     X_train = X_train / np.tile(255,(X_train.shape))
@@ -24,9 +24,9 @@ def getDigitRecognizerDataEtalons(pTrainPath, pTestPath):
     test = pd.read_csv("../Coursework/Data/" + pTestPath)
     
     X_train = (train.ix[:,1:].values).astype('float32')
-    y_train = train.ix[:,0].values.astype('int32')
+    y_train = (train.ix[:,0].values).astype('int32')
     X_test = (test.ix[:,1:].values).astype('float32')
-    y_test = test.ix[:,0].values.astype('int32')
+    y_test = (test.ix[:,0].values).astype('int32')
     
     X_train = X_train / np.tile(255,(X_train.shape))
     X_test = X_test / np.tile(255,(X_test.shape))
@@ -38,9 +38,9 @@ def getDigitRecognizerDataForTesting(pTrainPath, pTrainCount):
     data = pd.read_csv("../Coursework/Data/" + pTrainPath)
     
     X_train = (data.ix[:pTrainCount,1:].values).astype('float32')
-    y_train = data.ix[:pTrainCount,0].values.astype('int32')
+    y_train = (data.ix[:pTrainCount,0].values).astype('int32')
     X_test = (data.ix[pTrainCount:,1:].values).astype('float32')
-    y_test = data.ix[pTrainCount:,0].values.astype('int32')
+    y_test = (data.ix[pTrainCount:,0].values).astype('int32')
 
     X_train = X_train / np.tile(255,(X_train.shape))
     X_test = X_test / np.tile(255,(X_test.shape))

@@ -1,4 +1,5 @@
 import numpy as np
+import time
 from DataManipulation.DigitRecognizerData import *
 from Algorithms.kNN import apply_kNN
 
@@ -7,18 +8,24 @@ from Algorithms.kNN import apply_kNN
 # "Digit_Recognizer/train.csv"
 # "Digit_Recognizer/test.csv"
 
-def DigitRecognizerTest():
-    Counter = 0
-    X_train, y_train, X_test, y_test = getDigitRecognizerDataForTesting("Digit_Recognizer/train.csv", 10000)
-    for i in range(y_test.shape[0]):
+def kNNDigitRecognizerTest():
+    start = time.time()
+    result = []
+    X_train, y_train, X_test = getDigitRecognizerData("Digit_Recognizer/train.csv", "Digit_Recognizer/test.csv")
+    for i in range(X_test.shape[0]):
         Answer = apply_kNN(X_test[i],X_train,y_train,3)
-        if Answer == y_test[i]:
-            Counter = Counter + 1
+        result.append(Answer)
         if i % 100 == 0:
-            print("Working ... %d %% Correct = %d %%" % (100*i/y_test.shape[0], 100*Counter/(i+1)))
-    return (100*Counter / y_test.shape[0])
+            print("Working ... %d %%" % (100*i/X_test.shape[0]))
+    predictions=pd.DataFrame({"ImageId": list(range(1,len(result)+1)),
+                         "Label": result})
+    predictions = predictions.fillna(0)
+    predictions = predictions.astype(str)
+    predictions.to_csv("predictions.csv", index=False, header=True)
+    return (time.time() - start)
 
-print("Correct = %d %%" % DigitRecognizerTest())
-    
+if __name__ == "__main__":
+    print(kNNDigitRecognizerTest())
+    a = input()
 
 
