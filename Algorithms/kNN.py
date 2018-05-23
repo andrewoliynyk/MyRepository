@@ -14,7 +14,6 @@ def apply_kNN(pvX, pmDataSet, pvClasses, pK):
     result = max(ldVotes.items(), key=operator.itemgetter(1))[0]
     return result
 
-<<<<<<< HEAD
 def apply_kNN_M(pvX, pmDataSet, pvClasses, pK):
     ldVotes = {}
     for kClass in pvClasses:
@@ -24,8 +23,6 @@ def apply_kNN_M(pvX, pmDataSet, pvClasses, pK):
     lvDist = lvDist.argsort()
     for i in range(pK):
         lkClass = pvClasses[lvDist[i]]
-        ldVotes[lkClass] = ldVotes[lkClass] + lvDist[i]
-    result = min(ldVotes.items(), key=operator.itemgetter(1))[0]
+        ldVotes[lkClass] = ldVotes[lkClass] + 1/lvDist[i]
+    result = max(ldVotes.items(), key=operator.itemgetter(1))[0]
     return result
-=======
->>>>>>> kNN
